@@ -224,9 +224,56 @@ class Pull_Request_Review_Comment(Event):
     pass
 
 
-# Todo - Event Push
 class Push(Event):
-    pass
+    _required_keys = ('repository', 'sender', 'commits')
+    _optional_keys = {'created': False, 'deleted': False, 'forced': False}
+
+    def __init__(self, data: dict):
+        super().__init__('push', data)
+
+    @property
+    def ref(self):
+        return self.get('ref')
+
+    @property
+    def before(self):
+        return self.get('before')
+
+    @property
+    def after(self):
+        return self.get('after')
+
+    @property
+    def created(self):
+        return self.get('created')
+
+    @property
+    def deleted(self):
+        return self.get('deleted')
+
+    @property
+    def forced(self):
+        return self.get('forced')
+
+    @property
+    def base_ref(self):
+        return self.get('base_ref')
+
+    @property
+    def compare(self):
+        return self.get('compare')
+
+    @property
+    def commits(self):
+        return self.get('commits')
+
+    @property
+    def head_commit(self):
+        return self.get('head_commit')
+
+    @property
+    def pusher(self):
+        return self.get('pusher')
 
 
 # Todo - Event Release
