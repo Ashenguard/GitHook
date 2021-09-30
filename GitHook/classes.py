@@ -1,7 +1,3 @@
-"""
-Documents: https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
-"""
-
 import re
 from datetime import datetime
 from typing import Tuple, Dict, Optional, Any, Iterable, List
