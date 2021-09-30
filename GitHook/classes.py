@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from typing import Tuple, Dict, Optional, Any, Iterable, List
+from typing import Tuple, Dict, Optional, Any, Iterable
 
 
 class URL:
@@ -94,6 +94,12 @@ class DataHolder:
 
     def get(self, key, default=None):
         return self._data.get(key, default)
+
+    def __getattribute__(self, item):
+        data = self.get(item)
+        if data is None:
+            raise AttributeError(f"type object '{self.__class__.__name__}' has no attribute '{item}'")
+        return data
 
 
 class Collaborator(DataHolder):
@@ -499,12 +505,12 @@ class Repository(DataHolder):
     @property
     def created_at(self) -> datetime:
         time = self.get('created_at')
-        return datetime.fromisoformat(time) if time else datetime.fromtimestamp(0)
+        return datetime.fromisoformat(time[:-1]) if time else datetime.fromtimestamp(0)
 
     @property
     def updated_at(self) -> datetime:
         time = self.get('updated_at')
-        return datetime.fromisoformat(time) if time else datetime.fromtimestamp(0)
+        return datetime.fromisoformat(time[:-1]) if time else datetime.fromtimestamp(0)
 
     @property
     def permissions(self) -> dict:
@@ -566,6 +572,72 @@ class Repository(DataHolder):
     def source(self) -> Optional['Repository']:
         data = self.get('source')
         return Repository(data, []) if data else None
+
+
+'''
+{
+    "url": "https://api.github.com/repos/Codertocat/Hello-World/releases/17372790",
+    "assets_url": "https://api.github.com/repos/Codertocat/Hello-World/releases/17372790/assets",
+    "upload_url": "https://uploads.github.com/repos/Codertocat/Hello-World/releases/17372790/assets{?name,label}",
+    "html_url": "https://github.com/Codertocat/Hello-World/releases/tag/0.0.1",
+    "created_at": "2019-05-15T15:19:25Z",
+    "published_at": "2019-05-15T15:20:53Z",
+    "tarball_url": "https://api.github.com/repos/Codertocat/Hello-World/tarball/0.0.1",
+    "zipball_url": "https://api.github.com/repos/Codertocat/Hello-World/zipball/0.0.1",
+    "body": null
+  }
+'''
+
+
+class Release(DataHolder):
+    _required_keys = ('id', 'node_id', 'author', 'tag_name')
+    _optional_keys = {'prerelease': False, 'draft': False, 'assets': []}
+
+    @property
+    def id(self) -> int:
+        return self.get('id')
+
+    @property
+    def node_id(self) -> str:
+        return self.get('node_id')
+
+    @property
+    def author(self) -> Collaborator:
+        return Collaborator(self.get('author'))
+
+    @property
+    def tag_name(self) -> str:
+        return self.get('tag_name')
+
+    @property
+    def target_commitish(self) -> str:
+        return self.get('target_commitish')
+
+    @property
+    def name(self) -> str:
+        return self.get('name')
+
+    @property
+    def draft(self) -> bool:
+        return self.get('draft')
+
+    @property
+    def prerelease(self) -> bool:
+        return self.get('prerelease')
+
+    @property
+    def assets(self) -> list:
+        return self.get('assets')
+
+    @property
+    def created_at(self) -> datetime:
+        time = self.get('created_at')
+        return datetime.fromisoformat(time[:-1]) if time else datetime.fromtimestamp(0)
+
+    @property
+    def published_at(self) -> datetime:
+        time = self.get('published_at')
+        return datetime.fromisoformat(time[:-1]) if time else datetime.fromtimestamp(0)
 
 
 # Todo - Compelete Installation class
