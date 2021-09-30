@@ -1,7 +1,7 @@
 # Documents: https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
 from typing import Optional
 
-from .classes import DataHolder, Repository, Collaborator, Installation
+from .classes import DataHolder, Repository, Collaborator, Installation, Release
 
 
 class Event(DataHolder):
@@ -276,9 +276,16 @@ class Push(Event):
         return self.get('pusher')
 
 
-# Todo - Event Release
 class Release(Event):
-    pass
+    _required_keys = ('action', 'release', 'repository', 'sender')
+
+    @property
+    def action(self) -> str:
+        return self.get('action')
+
+    @property
+    def release(self) -> Release:
+        return Release(self.get('release'))
 
 
 # Todo - Event Repository_Dispatch
