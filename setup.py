@@ -22,5 +22,5 @@ setuptools.setup(
     ],
     python_requires='>=3.8',
     include_package_data=True,
-    install_requires=["flask", "requests"],
+    install_requires=["flask", "requests", "json"],
 )
