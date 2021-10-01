@@ -7,14 +7,6 @@ from .classes import DataHolder, Repository, Collaborator, Installation, Release
 class Event(DataHolder):
     _required_keys = ('repository', 'sender')
 
-    def __init__(self, action, data: dict):
-        super().__init__(data)
-        self._action = action
-
-    @property
-    def action(self) -> str:
-        return self._action
-
     @property
     def repository(self) -> Repository:
         return Repository(self.get('repository'))
@@ -35,201 +27,198 @@ class Event(DataHolder):
 
 
 # Todo - Event Branch_Protection_Rule
-class Branch_Protection_Rule(Event):
+class Branch_Protection_Rule_Event(Event):
     pass
 
 
 # Todo - Event Check_Run
-class Check_Run(Event):
+class Check_Run_Event(Event):
     pass
 
 
 # Todo - Event Check_Suite
-class Check_Suite(Event):
+class Check_Suite_Event(Event):
     pass
 
 
 # Todo - Event Code_Scanning_Alert
-class Code_Scanning_Alert(Event):
+class Code_Scanning_Alert_Event(Event):
     pass
 
 
 # Todo - Event Commit_Comment
-class Commit_Comment(Event):
+class Commit_Comment_Event(Event):
     pass
 
 
 # Todo - Event Content_Reference
-class Content_Reference(Event):
+class Content_Reference_Event(Event):
     pass
 
 
 # Todo - Event Create
-class Create(Event):
+class Create_Event(Event):
     pass
 
 
 # Todo - Event Delete
-class Delete(Event):
+class Delete_Event(Event):
     pass
 
 
 # Todo - Event Deploy_Key
-class Deploy_Key(Event):
+class Deploy_Key_Event(Event):
     pass
 
 
 # Todo - Event Deployment
-class Deployment(Event):
+class Deployment_Event(Event):
     pass
 
 
 # Todo - Event Deployment_Status
-class Deployment_Status(Event):
+class Deployment_Status_Event(Event):
     pass
 
 
 # Todo - Event Discussion
-class Discussion(Event):
+class Discussion_Event(Event):
     pass
 
 
 # Todo - Event Discussion_Comment
-class Discussion_Comment(Event):
+class Discussion_Comment_Event(Event):
     pass
 
 
 # Todo - Event Fork
-class Fork(Event):
+class Fork_Event(Event):
     pass
 
 
 # Todo - Event Github_App_Authorization
-class Github_App_Authorization(Event):
+class Github_App_Authorization_Event(Event):
     pass
 
 
 # Todo - Event Gollum
-class Gollum(Event):
+class Gollum_Event(Event):
     pass
 
 
 # Todo - Event Installation
-class Installation(Event):
+class Installation_Event(Event):
     pass
 
 
 # Todo - Event Installation_Repositories
-class Installation_Repositories(Event):
+class Installation_Repositories_Event(Event):
     pass
 
 
 # Todo - Event Issue_Comment
-class Issue_Comment(Event):
+class Issue_Comment_Event(Event):
     pass
 
 
 # Todo - Event Issues
-class Issues(Event):
+class Issues_Event(Event):
     pass
 
 
 # Todo - Event Label
-class Label(Event):
+class Label_Event(Event):
     pass
 
 
 # Todo - Event Marketplace_Purchase
-class Marketplace_Purchase(Event):
+class Marketplace_Purchase_Event(Event):
     pass
 
 
 # Todo - Event Member
-class Member(Event):
+class Member_Event(Event):
     pass
 
 
 # Todo - Event Membership
-class Membership(Event):
+class Membership_Event(Event):
     pass
 
 
 # Todo - Event Meta
-class Meta(Event):
+class Meta_Event(Event):
     pass
 
 
 # Todo - Event Milestone
-class Milestone(Event):
+class Milestone_Event(Event):
     pass
 
 
 # Todo - Event Organization
-class Organization(Event):
+class Organization_Event(Event):
     pass
 
 
 # Todo - Event Org_Block
-class Org_Block(Event):
+class Org_Block_Event(Event):
     pass
 
 
 # Todo - Event Package
-class Package(Event):
+class Package_Event(Event):
     pass
 
 
 # Todo - Event Page_Build
-class Page_Build(Event):
+class Page_Build_Event(Event):
     pass
 
 
 # Todo - Event Ping
-class Ping(Event):
+class Ping_Event(Event):
     pass
 
 
 # Todo - Event Project_Card
-class Project_Card(Event):
+class Project_Card_Event(Event):
     pass
 
 
 # Todo - Event Project_Column
-class Project_Column(Event):
+class Project_Column_Event(Event):
     pass
 
 
 # Todo - Event Project
-class Project(Event):
+class Project_Event(Event):
     pass
 
 
 # Todo - Event Public
-class Public(Event):
+class Public_Event(Event):
     pass
 
 
 # Todo - Event Pull_Request
-class Pull_Request(Event):
+class Pull_Request_Event(Event):
     pass
 
 
 # Todo - Event Pull_Request_Review
-class Pull_Request_Review(Event):
+class Pull_Request_Review_Event(Event):
     pass
 
 
 # Todo - Event Pull_Request_Review_Comment
-class Pull_Request_Review_Comment(Event):
+class Pull_Request_Review_Comment_Event(Event):
     pass
 
 
-class Push(Event):
+class Push_Event(Event):
     _required_keys = ('repository', 'sender', 'commits')
     _optional_keys = {'created': False, 'deleted': False, 'forced': False}
-
-    def __init__(self, data: dict):
-        super().__init__('push', data)
 
     @property
     def ref(self):
@@ -276,7 +265,7 @@ class Push(Event):
         return self.get('pusher')
 
 
-class Release(Event):
+class Release_Event(Event):
     _required_keys = ('action', 'release', 'repository', 'sender')
 
     @property
@@ -289,75 +278,75 @@ class Release(Event):
 
 
 # Todo - Event Repository_Dispatch
-class Repository_Dispatch(Event):
+class Repository_Dispatch_Event(Event):
     pass
 
 
 # Todo - Event Repository
-class Repository(Event):
+class Repository_Event(Event):
     pass
 
 
 # Todo - Event Repository_Import
-class Repository_Import(Event):
+class Repository_Import_Event(Event):
     pass
 
 
 # Todo - Event Repository_Vulnerability_Alert
-class Repository_Vulnerability_Alert(Event):
+class Repository_Vulnerability_Alert_Event(Event):
     pass
 
 
 # Todo - Event Secret_Scanning_Alert
-class Secret_Scanning_Alert(Event):
+class Secret_Scanning_Alert_Event(Event):
     pass
 
 
 # Todo - Event Security_Advisory
-class Security_Advisory(Event):
+class Security_Advisory_Event(Event):
     pass
 
 
 # Todo - Event Sponsorship
-class Sponsorship(Event):
+class Sponsorship_Event(Event):
     pass
 
 
 # Todo - Event Star
-class Star(Event):
+class Star_Event(Event):
     pass
 
 
 # Todo - Event Status
-class Status(Event):
+class Status_Event(Event):
     pass
 
 
 # Todo - Event Team
-class Team(Event):
+class Team_Event(Event):
     pass
 
 
 # Todo - Event Team_Add
-class Team_Add(Event):
+class Team_Add_Event(Event):
     pass
 
 
 # Todo - Event Watch
-class Watch(Event):
+class Watch_Event(Event):
     pass
 
 
 # Todo - Event Workflow_Dispatch
-class Workflow_Dispatch(Event):
+class Workflow_Dispatch_Event(Event):
     pass
 
 
 # Todo - Event Workflow_Job
-class Workflow_Job(Event):
+class Workflow_Job_Event(Event):
     pass
 
 
 # Todo - Event Workflow_Run
-class Workflow_Run(Event):
+class Workflow_Run_Event(Event):
     pass
